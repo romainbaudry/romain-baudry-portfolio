@@ -43,57 +43,67 @@ const sections = [
 
 const directorVideos = [
   {
-    title: "Une Ferme sur Sol Vivant",
-    youtubeUrl: "https://youtu.be/T6cFPxLRkTs",
-    thumbnail: "https://img.youtube.com/vi/T6cFPxLRkTs/maxresdefault.jpg",
-  },
-  {
     title: "Blacksmith",
     youtubeUrl: "https://youtu.be/26FzZbTLQoY",
     thumbnail: "https://img.youtube.com/vi/26FzZbTLQoY/maxresdefault.jpg",
+    previewVideo: "/videos/director/blacksmith.mp4",
+  },
+  {
+    title: "Une Ferme sur Sol Vivant",
+    youtubeUrl: "https://youtu.be/T6cFPxLRkTs",
+    thumbnail: "https://img.youtube.com/vi/T6cFPxLRkTs/maxresdefault.jpg",
+    previewVideo: "/videos/director/ferme.mp4",
   },
   {
     title: "Equilibrivm",
     youtubeUrl: "https://youtu.be/TDGUyRcKDQY",
     thumbnail: "https://img.youtube.com/vi/TDGUyRcKDQY/maxresdefault.jpg",
+    previewVideo: "/videos/director/equilibrivm.mp4",
   },
   {
     title: "La Bonne Aventure",
     youtubeUrl: "https://youtu.be/sdHxbXPZtUA",
     thumbnail: "https://img.youtube.com/vi/sdHxbXPZtUA/maxresdefault.jpg",
+    previewVideo: "/videos/director/bonne-aventure.mp4",
   },
 ];
 
 const editorVideos = [
   {
     title: "Editor Project 1",
-    youtubeUrl: "https://youtu.be/bO7QcNrlU-s",
-    thumbnail: "https://img.youtube.com/vi/bO7QcNrlU-s/maxresdefault.jpg",
+    youtubeUrl: "https://youtu.be/hzexEBHNh_E",
+    thumbnail: "https://img.youtube.com/vi/hzexEBHNh_E/maxresdefault.jpg",
+    previewVideo: "/videos/editor/a-second-life.mp4",
   },
   {
     title: "Editor Project 2",
-    youtubeUrl: "https://youtu.be/t0vYfXplAZ4",
-    thumbnail: "https://img.youtube.com/vi/t0vYfXplAZ4/maxresdefault.jpg",
+    youtubeUrl: "https://youtu.be/1nictnMek7I",
+    thumbnail: "https://img.youtube.com/vi/1nictnMek7I/maxresdefault.jpg",
+    previewVideo: "/videos/editor/allianz.mp4",
   },
   {
     title: "Editor Project 3",
-    youtubeUrl: "https://youtu.be/hzexEBHNh_E",
-    thumbnail: "https://img.youtube.com/vi/hzexEBHNh_E/maxresdefault.jpg",
+    youtubeUrl: "https://youtu.be/bO7QcNrlU-s",
+    thumbnail: "https://img.youtube.com/vi/bO7QcNrlU-s/maxresdefault.jpg",
+    previewVideo: "/videos/editor/fretbay.mp4",
   },
   {
     title: "Editor Project 4",
-    youtubeUrl: "https://youtu.be/j571JNrDRwE",
-    thumbnail: "https://img.youtube.com/vi/j571JNrDRwE/maxresdefault.jpg",
+    youtubeUrl: "https://youtu.be/t0vYfXplAZ4",
+    thumbnail: "https://img.youtube.com/vi/t0vYfXplAZ4/maxresdefault.jpg",
+    previewVideo: "/videos/editor/grand-blanc.mp4",
   },
   {
     title: "Editor Project 5",
-    youtubeUrl: "https://youtu.be/1nictnMek7I",
-    thumbnail: "https://img.youtube.com/vi/1nictnMek7I/maxresdefault.jpg",
+    youtubeUrl: "https://youtu.be/j571JNrDRwE",
+    thumbnail: "https://img.youtube.com/vi/j571JNrDRwE/maxresdefault.jpg",
+    previewVideo: "/videos/editor/repetto.mp4",
   },
   {
     title: "Editor Project 6",
     youtubeUrl: "https://youtu.be/xa9F1JSC4g4",
     thumbnail: "https://img.youtube.com/vi/xa9F1JSC4g4/maxresdefault.jpg",
+    previewVideo: "/videos/editor/undone.mp4",
   },
 ];
 
@@ -281,15 +291,26 @@ export default function Home() {
                       onClick={() => setSelectedVideo(video.youtubeUrl)}
                       className="group relative block overflow-hidden bg-black cursor-pointer"
                     >
-                      <img
-                        src={video.thumbnail}
-                        alt={video.title}
+                      <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
                         className="w-full aspect-video object-cover transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
-                      />
+                      >
+                        <source src={video.previewVideo} type="video/mp4" />
+                      </video>
 
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-20 h-14 rounded-xl bg-red-600 flex items-center justify-center shadow-xl transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white ml-1" />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="w-16 h-16 rounded-full bg-black/80 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="w-7 h-7 text-white"
+                            fill="currentColor"
+                          >
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
                         </div>
                       </div>
                     </div>
@@ -307,15 +328,26 @@ export default function Home() {
                       onClick={() => setSelectedVideo(video.youtubeUrl)}
                       className="group relative block overflow-hidden bg-black cursor-pointer"
                     >
-                      <img
-                        src={video.thumbnail}
-                        alt={video.title}
+                      <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
                         className="w-full aspect-video object-cover transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
-                      />
+                      >
+                        <source src={video.previewVideo} type="video/mp4" />
+                      </video>
 
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-20 h-14 rounded-xl bg-red-600 flex items-center justify-center shadow-xl transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white ml-1" />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="w-16 h-16 rounded-full bg-black/80 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="w-7 h-7 text-white"
+                            fill="currentColor"
+                          >
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
                         </div>
                       </div>
                     </div>
@@ -403,7 +435,7 @@ export default function Home() {
       )}
       {isContactOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-6">
-          <div className="paper-texture bg-[#FF6B57] border-2 border-black max-w-2xl w-full p-6 md:p-10 shadow-[12px_12px_0px_black] relative rotate-0 md:rotate-2">
+          <div className="paper-texture bg-[#34B300] border-2 border-black max-w-2xl w-full p-6 md:p-10 shadow-[12px_12px_0px_black] relative rotate-0 md:rotate-2">
             <button
               onClick={() => setIsContactOpen(false)}
               className="absolute top-4 right-4 text-2xl leading-none"
@@ -430,8 +462,8 @@ export default function Home() {
                     <p className="text-xs uppercase tracking-[0.2em] mb-2">
                       {language === "en" ? "Phone" : "Téléphone"}
                     </p>
-                    <a href="tel:0699425230" className="hover:underline font-medium">
-                      06 99 42 52 30
+                    <a href="tel:+33699425230" className="hover:underline font-medium">
+                      +33 6 99 42 52 30
                     </a>
                   </div>
 
