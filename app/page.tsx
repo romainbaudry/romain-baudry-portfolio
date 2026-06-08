@@ -145,6 +145,7 @@ const musicVideos = [
 
 export default function Home() {
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [language, setLanguage] = useState<"en" | "fr">("en");
@@ -237,7 +238,7 @@ export default function Home() {
               }
               className={`${section.bg} ${section.hoverBg} ${section.text} paper-texture border-b border-black px-6 md:px-10 py-6 md:py-8 cursor-pointer transition-all duration-500 hover:scale-y-[1.12] hover:z-10 hover:relative group`}
             >
-              <div className="grid grid-cols-[20px_55px_1fr] md:grid-cols-[40px_120px_1fr_220px_100px] items-center gap-3 md:gap-8 transition-all duration-500 group-hover:py-3">
+              <div className="grid grid-cols-[20px_55px_1fr] md:grid-cols-[40px_120px_1fr_100px] items-center gap-3 md:gap-8 transition-all duration-500 group-hover:py-3">
                 <div className="w-4 h-4 rounded-full border border-current" />
 
                 <div className={`text-[10vw] md:text-[5vw] font-black leading-none ${section.accent}`}>
@@ -247,17 +248,25 @@ export default function Home() {
                 <h2 className="text-[7vw] md:text-[6vw] leading-none font-black uppercase transition-all duration-500 group-hover:translate-x-3 group-hover:scale-y-110 origin-center break-words">
                   {section.title}
                 </h2>
-
-                <p className="hidden md:block text-lg leading-snug font-medium">
-                  {section.subtitle}
-                </p>
-                <p className="md:hidden text-xs leading-tight font-medium col-span-3 mt-2">
-                  {section.subtitle}
-                </p>
-
+                
                 <div className="hidden md:flex justify-end">
-                  <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-2 border-current flex items-center justify-center text-xl md:text-3xl font-light transition-transform duration-300 group-hover:rotate-12">
-                    {openSection === section.number ? "↓" : "→"}
+                  <div className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-black text-white flex items-center justify-center text-3xl md:text-5xl font-black transition-all duration-300 group-hover:scale-110">
+                    <svg
+                      viewBox="0 0 24 24"
+                      className={`w-8 h-8 md:w-10 md:h-10 transition-transform duration-300 ${
+                        openSection === section.number
+                          ? "rotate-90 group-hover:rotate-[110deg]"
+                          : "rotate-0 group-hover:rotate-[20deg]"
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
                   </div>
                 </div>
               </div>
@@ -267,12 +276,10 @@ export default function Home() {
               <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-in fade-in duration-500">
                 <div className="grid md:grid-cols-2 gap-6">
                   {directorVideos.map((video) => (
-                    <a
+                    <div
                       key={video.youtubeUrl}
-                      href={video.youtubeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative block overflow-hidden bg-black"
+                      onClick={() => setSelectedVideo(video.youtubeUrl)}
+                      className="group relative block overflow-hidden bg-black cursor-pointer"
                     >
                       <img
                         src={video.thumbnail}
@@ -285,7 +292,7 @@ export default function Home() {
                           <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white ml-1" />
                         </div>
                       </div>
-                    </a>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -295,12 +302,10 @@ export default function Home() {
               <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-in fade-in duration-500">
                 <div className="grid md:grid-cols-2 gap-6">
                   {editorVideos.map((video) => (
-                    <a
+                    <div
                       key={video.youtubeUrl}
-                      href={video.youtubeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative block overflow-hidden bg-black"
+                      onClick={() => setSelectedVideo(video.youtubeUrl)}
+                      className="group relative block overflow-hidden bg-black cursor-pointer"
                     >
                       <img
                         src={video.thumbnail}
@@ -313,7 +318,7 @@ export default function Home() {
                           <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white ml-1" />
                         </div>
                       </div>
-                    </a>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -323,12 +328,10 @@ export default function Home() {
               <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-in fade-in duration-500">
                 <div className="grid md:grid-cols-2 gap-6">
                   {contentVideos.map((video) => (
-                    <a
+                    <div
                       key={video.youtubeUrl}
-                      href={video.youtubeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative block overflow-hidden bg-black"
+                      onClick={() => setSelectedVideo(video.youtubeUrl)}
+                      className="group relative block overflow-hidden bg-black cursor-pointer"
                     >
                       <img
                         src={video.thumbnail}
@@ -341,7 +344,7 @@ export default function Home() {
                           <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white ml-1" />
                         </div>
                       </div>
-                    </a>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -351,12 +354,10 @@ export default function Home() {
               <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-in fade-in duration-500">
                 <div className="grid md:grid-cols-2 gap-6">
                   {musicVideos.map((video) => (
-                    <a
+                    <div
                       key={video.youtubeUrl}
-                      href={video.youtubeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative block overflow-hidden bg-black"
+                      onClick={() => setSelectedVideo(video.youtubeUrl)}
+                      className="group relative block overflow-hidden bg-black cursor-pointer"
                     >
                       <img
                         src={video.thumbnail}
@@ -369,7 +370,7 @@ export default function Home() {
                           <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white ml-1" />
                         </div>
                       </div>
-                    </a>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -377,6 +378,29 @@ export default function Home() {
           </div>
         ))}
       </section>
+      {selectedVideo && (
+        <div className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
+          <button
+            onClick={() => setSelectedVideo(null)}
+            className="absolute top-4 right-4 md:top-6 md:right-6 text-white text-5xl leading-none z-10"
+          >
+            ×
+          </button>
+
+          <div className="w-full max-w-6xl aspect-video">
+            <iframe
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${selectedVideo
+                .split("/")
+                .pop()
+                ?.split("?")[0]}?autoplay=1`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
       {isContactOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-6">
           <div className="paper-texture bg-[#FF6B57] border-2 border-black max-w-2xl w-full p-6 md:p-10 shadow-[12px_12px_0px_black] relative rotate-0 md:rotate-2">
