@@ -223,14 +223,14 @@ export default function Home() {
               }
               className={`${section.bg} ${section.hoverBg} ${section.text} paper-texture border-b border-black px-6 md:px-10 py-6 md:py-8 cursor-pointer transition-all duration-500 hover:scale-y-[1.12] hover:z-10 hover:relative group`}
             >
-              <div className="grid grid-cols-[24px_70px_1fr_60px] md:grid-cols-[40px_120px_1fr_220px_100px] items-center gap-3 md:gap-8 transition-all duration-500 group-hover:py-3">
+              <div className="grid grid-cols-[20px_55px_1fr] md:grid-cols-[40px_120px_1fr_220px_100px] items-center gap-3 md:gap-8 transition-all duration-500 group-hover:py-3">
                 <div className="w-4 h-4 rounded-full border border-current" />
 
-                <div className={`text-[12vw] md:text-[5vw] font-black leading-none ${section.accent}`}>
+                <div className={`text-[10vw] md:text-[5vw] font-black leading-none ${section.accent}`}>
                   {section.number}
                 </div>
 
-                <h2 className="text-[11vw] md:text-[6vw] leading-none font-black uppercase transition-all duration-500 group-hover:translate-x-3 group-hover:scale-y-110 origin-center break-words">
+                <h2 className="text-[7vw] md:text-[6vw] leading-none font-black uppercase transition-all duration-500 group-hover:translate-x-3 group-hover:scale-y-110 origin-center break-words">
                   {section.title}
                 </h2>
 
@@ -241,7 +241,7 @@ export default function Home() {
                   {section.subtitle}
                 </p>
 
-                <div className="flex justify-end">
+                <div className="hidden md:flex justify-end">
                   <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-2 border-current flex items-center justify-center text-xl md:text-3xl font-light transition-transform duration-300 group-hover:rotate-12">
                     {openSection === section.number ? "↓" : "→"}
                   </div>
@@ -381,7 +381,7 @@ export default function Home() {
                   {language === "en" ? "Talk" : "Ensemble"}
                 </h3>
 
-                <p className="text-xl md:text-2xl leading-tight font-medium mb-8 max-w-lg">
+                <p className="text-lg md:text-2xl leading-tight font-medium mb-8 max-w-lg">
                   {language === "en"
                     ? "Available for directing, editing, content creation and creative collaborations."
                     : "Disponible pour la réalisation, le montage, la création de contenu et les collaborations créatives."}
@@ -428,7 +428,7 @@ export default function Home() {
                 </h3>
 
 
-                <p className="text-base md:text-lg leading-relaxed max-w-md">
+                <p className="text-sm md:text-lg leading-relaxed max-w-md">
                   {language === "en" ? (
                     <>
                       Director, editor, content creator and DJ, I move between disciplines and use each of them to feed the others.
@@ -449,7 +449,7 @@ export default function Home() {
                 <img
                   src="/romain-about.jpg"
                   alt="Romain Baudry"
-                  className="w-full aspect-[4/5] object-cover border-2 border-black"
+                  className="w-full max-w-[320px] mx-auto aspect-[4/5] object-cover border-2 border-black"
                 />
               </div>
             </div>
