@@ -7,7 +7,8 @@ const sections = [
     number: "01",
     title: "DIRECTOR",
     subtitle: "documentary, artist content, events",
-    bg: "bg-[#E8D934]",
+    bg: "bg-[#F4C234]",
+    hoverBg: "hover:bg-[#34B300]",
     text: "text-black",
     accent: "text-black",
   },
@@ -15,7 +16,8 @@ const sections = [
     number: "02",
     title: "EDITOR",
     subtitle: "Editing, rhythm and post-production",
-    bg: "bg-[#1D32D8]",
+    bg: "bg-[#4C8EF7]",
+    hoverBg: "hover:bg-[#C69BEA]",
     text: "text-white",
     accent: "text-white",
   },
@@ -23,7 +25,8 @@ const sections = [
     number: "03",
     title: "SOCIAL",
     subtitle: "YouTube, social media, photography and thumbnails",
-    bg: "bg-[#E6C1D6]",
+    bg: "bg-[#E6A8C9]",
+    hoverBg: "hover:bg-[#34B300]",
     text: "text-black",
     accent: "text-black",
   },
@@ -31,9 +34,10 @@ const sections = [
     number: "04",
     title: "MUSIC",
     subtitle: "DJ sets, events and musical projects",
-    bg: "bg-[#1E2418]",
-    text: "text-[#E8D934]",
-    accent: "text-[#E8D934]",
+    bg: "bg-[#FF5533]",
+    hoverBg: "hover:bg-[#F4C234]",
+    text: "text-black",
+    accent: "text-black",
   },
 ];
 
@@ -143,8 +147,30 @@ export default function Home() {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [language, setLanguage] = useState<"en" | "fr">("en");
 
-  const activeSection = sections.find(
+  const currentSections = sections.map((section) => ({
+    ...section,
+    title:
+      language === "fr"
+        ? {
+            DIRECTOR: "RÉALISATION",
+            EDITOR: "MONTAGE",
+            MUSIC: "MUSIQUE",
+          }[section.title] || section.title
+        : section.title,
+    subtitle:
+      language === "fr"
+        ? {
+            "01": "documentaire, contenu artistique, événements",
+            "02": "montage, rythme et post-production",
+            "03": "YouTube, réseaux sociaux, photo et miniatures",
+            "04": "DJ sets, événements et projets musicaux",
+          }[section.number] || section.subtitle
+        : section.subtitle,
+  }));
+
+  const activeSection = currentSections.find(
     (section) => section.number === openSection
   );
 
@@ -153,12 +179,11 @@ export default function Home() {
       <section className="px-6 md:px-10 pt-8 pb-8 border-b border-black">
         <div className="grid md:grid-cols-[1fr_320px] gap-10 items-end">
           <div>
-            <h1 className="text-[15vw] md:text-[7.5vw] leading-[0.82] font-black uppercase">
-              <span className="text-black">
+            <h1 className="leading-[0.85]">
+              <span className="text-black block text-[16vw] md:text-[7vw] font-black uppercase leading-none">
                 Romain
               </span>
-              <br />
-              <span className="text-black">
+              <span className="text-black block text-[16vw] md:text-[7vw] font-black uppercase leading-none">
                 Baudry
               </span>
             </h1>
@@ -166,24 +191,29 @@ export default function Home() {
 
           <div className="md:justify-self-end flex gap-3">
             <button
-              onClick={() => setIsContactOpen(true)}
-              className="text-sm uppercase tracking-[0.25em] font-semibold border border-black px-6 py-3 bg-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              onClick={() => setLanguage(language === "en" ? "fr" : "en")}
+              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-4 py-3 bg-[#34B300] hover:bg-[#4C8EF7] hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
             >
-              Contact
+              {language === "en" ? "FR" : "EN"}
             </button>
-
             <button
               onClick={() => setIsAboutOpen(true)}
-              className="text-sm uppercase tracking-[0.25em] font-semibold border border-black px-6 py-3 bg-[#E8D934] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-6 py-3 bg-[#C69BEA] hover:bg-[#4C8EF7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
             >
-              About
+              {language === "en" ? "About" : "About"}
+            </button>
+            <button
+              onClick={() => setIsContactOpen(true)}
+              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-6 py-3 bg-[#FF5533] hover:bg-[#34B300] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+            >
+              Contact
             </button>
           </div>
         </div>
       </section>
 
       <section>
-        {sections.map((section) => (
+        {currentSections.map((section) => (
           <div key={section.number}>
             <div
               onClick={() =>
@@ -191,7 +221,7 @@ export default function Home() {
                   openSection === section.number ? null : section.number
                 )
               }
-              className={`${section.bg} ${section.text} border-b border-black px-6 md:px-10 py-6 md:py-8 cursor-pointer transition-all duration-500 hover:brightness-110 hover:scale-y-[1.12] hover:z-10 hover:relative group`}
+              className={`${section.bg} ${section.hoverBg} ${section.text} paper-texture border-b border-black px-6 md:px-10 py-6 md:py-8 cursor-pointer transition-all duration-500 hover:scale-y-[1.12] hover:z-10 hover:relative group`}
             >
               <div className="grid grid-cols-[40px_120px_1fr_220px_100px] items-center gap-4 md:gap-8 transition-all duration-500 group-hover:py-3">
                 <div className="w-4 h-4 rounded-full border border-current" />
@@ -332,7 +362,7 @@ export default function Home() {
       </section>
       {isContactOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-6">
-          <div className="bg-[#FF6B57] border-2 border-black max-w-2xl w-full p-8 md:p-10 shadow-[12px_12px_0px_black] relative rotate-2">
+          <div className="paper-texture bg-[#FF6B57] border-2 border-black max-w-2xl w-full p-8 md:p-10 shadow-[12px_12px_0px_black] relative rotate-2">
             <button
               onClick={() => setIsContactOpen(false)}
               className="absolute top-4 right-4 text-2xl leading-none"
@@ -343,18 +373,22 @@ export default function Home() {
             <div>
               <div>
                 <h3 className="text-4xl md:text-6xl leading-[0.85] font-black uppercase mb-6">
-                  Let's
+                  {language === "en" ? "Let's" : "Parlons"}
                   <br />
-                  Talk
+                  {language === "en" ? "Talk" : "Ensemble"}
                 </h3>
 
                 <p className="text-xl md:text-2xl leading-tight font-medium mb-8 max-w-lg">
-                  Available for directing, editing, content creation and creative collaborations.
+                  {language === "en"
+                    ? "Available for directing, editing, content creation and creative collaborations."
+                    : "Disponible pour la réalisation, le montage, la création de contenu et les collaborations créatives."}
                 </p>
 
                 <div className="space-y-5 text-lg">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.2em] mb-2">Phone</p>
+                    <p className="text-xs uppercase tracking-[0.2em] mb-2">
+                      {language === "en" ? "Phone" : "Téléphone"}
+                    </p>
                     <a href="tel:0699425230" className="hover:underline font-medium">
                       06 99 42 52 30
                     </a>
@@ -374,7 +408,7 @@ export default function Home() {
       )}
       {isAboutOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-6">
-          <div className="bg-[#FFF200] border-2 border-black max-w-5xl w-full p-8 md:p-12 shadow-[12px_12px_0px_black] relative -rotate-2">
+          <div className="paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-8 md:p-12 shadow-[12px_12px_0px_black] relative -rotate-2">
             <button
               onClick={() => setIsAboutOpen(false)}
               className="absolute top-4 right-4 text-2xl leading-none"
@@ -390,12 +424,21 @@ export default function Home() {
                   Baudry
                 </h3>
 
-                <p className="text-2xl md:text-3xl leading-tight font-medium mb-8">
-                  I create videos with a strong focus on visual storytelling and emotion.
-                </p>
 
                 <p className="text-base md:text-lg leading-relaxed max-w-md">
-                  Working across documentaries, branded films, social content and independent projects, always searching for strong visuals, emotion and authenticity.
+                  {language === "en" ? (
+                    <>
+                      Director, editor, content creator and DJ, I move between disciplines and use each of them to feed the others.
+                      <br /><br />
+                      My work is driven by curiosity, visual culture and a constant search for emotion, rhythm and strong imagery.
+                    </>
+                  ) : (
+                    <>
+                      Réalisateur, monteur, créateur de contenu et DJ, je navigue entre les disciplines et les fais dialoguer entre elles.
+                      <br /><br />
+                      Mon travail est guidé par la curiosité, la culture visuelle et une recherche constante d'émotion, de rythme et d'images fortes.
+                    </>
+                  )}
                 </p>
               </div>
 

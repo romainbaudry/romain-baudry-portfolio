@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "AppoPaint";
+  src: local("AppoPaint"), url("/fonts/appopaint-Regular.otf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Better Faster";
+  src: url("/fonts/Better Faster.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -23,4 +39,20 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.paper-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.paper-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url("/textures/soft-plaster-texture.jpg") center/cover no-repeat;
+  opacity: 0.25;
+  mix-blend-mode: multiply;
+  filter: contrast(1.2);
 }
