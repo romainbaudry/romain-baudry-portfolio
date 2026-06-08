@@ -480,8 +480,8 @@ export default function Home() {
         </div>
       )}
       {isAboutOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-3 md:p-6 overflow-y-auto">
-          <div className="paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 pt-16 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2 max-h-[95vh] mt-4 md:mt-0">
+        <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center bg-black/40 p-3 md:p-6 overflow-y-auto">
+          <div className="paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 pt-16 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2 max-h-[95vh] mt-4 md:mt-8">
             <button
               onClick={() => setIsAboutOpen(false)}
               className="absolute top-4 right-4 md:top-6 md:right-6 text-4xl leading-none z-50 bg-[#FFF200] border border-black w-12 h-12 flex items-center justify-center"
