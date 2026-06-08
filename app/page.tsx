@@ -64,7 +64,7 @@ const directorVideos = [
     title: "La Bonne Aventure",
     youtubeUrl: "https://youtu.be/sdHxbXPZtUA",
     thumbnail: "https://img.youtube.com/vi/sdHxbXPZtUA/maxresdefault.jpg",
-    previewVideo: "/videos/director/bonne-aventure.mp4",
+    previewVideo: "/videos/director/bonne-aventure-2.mp4",
   },
 ];
 
