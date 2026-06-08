@@ -177,34 +177,34 @@ export default function Home() {
   return (
     <main className="bg-[#F7F4EE] text-black min-h-screen">
       <section className="px-6 md:px-10 pt-8 pb-8 border-b border-black">
-        <div className="grid md:grid-cols-[1fr_320px] gap-10 items-end">
+        <div className="grid md:grid-cols-[1fr_320px] gap-8 md:gap-10 items-end">
           <div>
             <h1 className="leading-[0.85]">
-              <span className="text-black block text-[16vw] md:text-[7vw] font-black uppercase leading-none">
+              <span className="text-black block text-[20vw] sm:text-[16vw] md:text-[7vw] font-black uppercase leading-none">
                 Romain
               </span>
-              <span className="text-black block text-[16vw] md:text-[7vw] font-black uppercase leading-none">
+              <span className="text-black block text-[20vw] sm:text-[16vw] md:text-[7vw] font-black uppercase leading-none">
                 Baudry
               </span>
             </h1>
           </div>
 
-          <div className="md:justify-self-end flex gap-3">
+          <div className="md:justify-self-end flex flex-wrap gap-3 mt-4 md:mt-0">
             <button
               onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-4 py-3 bg-[#34B300] hover:bg-[#4C8EF7] hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 py-3 min-w-[90px] bg-[#34B300] hover:bg-[#4C8EF7] hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
             >
               {language === "en" ? "FR" : "EN"}
             </button>
             <button
               onClick={() => setIsAboutOpen(true)}
-              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-6 py-3 bg-[#C69BEA] hover:bg-[#4C8EF7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#C69BEA] hover:bg-[#4C8EF7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
             >
               {language === "en" ? "About" : "About"}
             </button>
             <button
               onClick={() => setIsContactOpen(true)}
-              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-6 py-3 bg-[#FF5533] hover:bg-[#34B300] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#FF5533] hover:bg-[#34B300] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
             >
               Contact
             </button>
@@ -223,23 +223,26 @@ export default function Home() {
               }
               className={`${section.bg} ${section.hoverBg} ${section.text} paper-texture border-b border-black px-6 md:px-10 py-6 md:py-8 cursor-pointer transition-all duration-500 hover:scale-y-[1.12] hover:z-10 hover:relative group`}
             >
-              <div className="grid grid-cols-[40px_120px_1fr_220px_100px] items-center gap-4 md:gap-8 transition-all duration-500 group-hover:py-3">
+              <div className="grid grid-cols-[24px_70px_1fr_60px] md:grid-cols-[40px_120px_1fr_220px_100px] items-center gap-3 md:gap-8 transition-all duration-500 group-hover:py-3">
                 <div className="w-4 h-4 rounded-full border border-current" />
 
-                <div className={`text-[10vw] md:text-[5vw] font-black leading-none ${section.accent}`}>
+                <div className={`text-[12vw] md:text-[5vw] font-black leading-none ${section.accent}`}>
                   {section.number}
                 </div>
 
-                <h2 className="text-[12vw] md:text-[6vw] leading-none font-black uppercase transition-all duration-500 group-hover:translate-x-3 group-hover:scale-y-110 origin-center">
+                <h2 className="text-[11vw] md:text-[6vw] leading-none font-black uppercase transition-all duration-500 group-hover:translate-x-3 group-hover:scale-y-110 origin-center break-words">
                   {section.title}
                 </h2>
 
                 <p className="hidden md:block text-lg leading-snug font-medium">
                   {section.subtitle}
                 </p>
+                <p className="md:hidden text-xs leading-tight font-medium col-span-3 mt-2">
+                  {section.subtitle}
+                </p>
 
                 <div className="flex justify-end">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-current flex items-center justify-center text-3xl font-light transition-transform duration-300 group-hover:rotate-12">
+                  <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-2 border-current flex items-center justify-center text-xl md:text-3xl font-light transition-transform duration-300 group-hover:rotate-12">
                     {openSection === section.number ? "↓" : "→"}
                   </div>
                 </div>
@@ -362,7 +365,7 @@ export default function Home() {
       </section>
       {isContactOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-6">
-          <div className="paper-texture bg-[#FF6B57] border-2 border-black max-w-2xl w-full p-8 md:p-10 shadow-[12px_12px_0px_black] relative rotate-2">
+          <div className="paper-texture bg-[#FF6B57] border-2 border-black max-w-2xl w-full p-6 md:p-10 shadow-[12px_12px_0px_black] relative rotate-0 md:rotate-2">
             <button
               onClick={() => setIsContactOpen(false)}
               className="absolute top-4 right-4 text-2xl leading-none"
@@ -408,7 +411,7 @@ export default function Home() {
       )}
       {isAboutOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-6">
-          <div className="paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-8 md:p-12 shadow-[12px_12px_0px_black] relative -rotate-2">
+          <div className="paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2">
             <button
               onClick={() => setIsAboutOpen(false)}
               className="absolute top-4 right-4 text-2xl leading-none"
@@ -418,7 +421,7 @@ export default function Home() {
 
             <div className="grid md:grid-cols-[420px_1fr] gap-10 items-start mb-10">
               <div>
-                <h3 className="text-5xl md:text-7xl leading-[0.85] font-black uppercase mb-6">
+                <h3 className="text-4xl md:text-7xl leading-[0.85] font-black uppercase mb-6">
                   Romain
                   <br />
                   Baudry
