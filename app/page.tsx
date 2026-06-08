@@ -18,12 +18,12 @@ const sections = [
     subtitle: "Editing, rhythm and post-production",
     bg: "bg-[#4C8EF7]",
     hoverBg: "hover:bg-[#C69BEA]",
-    text: "text-white",
-    accent: "text-white",
+    text: "text-black",
+    accent: "text-black",
   },
   {
     number: "03",
-    title: "SOCIAL",
+    title: "YOUTUBE",
     subtitle: "YouTube, social media, photography and thumbnails",
     bg: "bg-[#E6A8C9]",
     hoverBg: "hover:bg-[#34B300]",
@@ -156,6 +156,7 @@ export default function Home() {
         ? {
             DIRECTOR: "RÉALISATION",
             EDITOR: "MONTAGE",
+            YOUTUBE: "YOUTUBE",
             MUSIC: "MUSIQUE",
           }[section.title] || section.title
         : section.title,
@@ -176,38 +177,51 @@ export default function Home() {
 
   return (
     <main className="bg-[#F7F4EE] text-black min-h-screen">
-      <section className="px-6 md:px-10 pt-8 pb-8 border-b border-black">
-        <div className="grid md:grid-cols-[1fr_320px] gap-8 md:gap-10 items-end">
-          <div>
-            <h1 className="leading-[0.85]">
-              <span className="text-black block text-[20vw] sm:text-[16vw] md:text-[7vw] font-black uppercase leading-none">
-                Romain
-              </span>
-              <span className="text-black block text-[20vw] sm:text-[16vw] md:text-[7vw] font-black uppercase leading-none">
-                Baudry
-              </span>
-            </h1>
-          </div>
+      <section className="relative px-6 md:px-10 pt-8 pb-8 border-b border-black overflow-hidden bg-black">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        >
+          <source src="/videos/flicker-texture-2.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
 
-          <div className="md:justify-self-end flex flex-col items-start md:flex-row gap-3 mt-4 md:mt-0">
-            <button
-              onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-              className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 py-3 min-w-[90px] bg-[#34B300] hover:bg-[#4C8EF7] hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
-            >
-              {language === "en" ? "FR" : "EN"}
-            </button>
-            <button
-              onClick={() => setIsAboutOpen(true)}
-              className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#C69BEA] hover:bg-[#4C8EF7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
-            >
-              {language === "en" ? "About" : "About"}
-            </button>
-            <button
-              onClick={() => setIsContactOpen(true)}
-              className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#FF5533] hover:bg-[#34B300] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
-            >
-              Contact
-            </button>
+        <div className="relative z-10 bg-transparent">
+          <div className="grid md:grid-cols-[1fr_320px] gap-8 md:gap-10 items-end">
+            <div>
+              <h1 className="leading-[0.85]">
+                <span className="text-white block text-[20vw] sm:text-[16vw] md:text-[7vw] font-black uppercase leading-none">
+                  Romain
+                </span>
+                <span className="text-white block text-[20vw] sm:text-[16vw] md:text-[7vw] font-black uppercase leading-none">
+                  Baudry
+                </span>
+              </h1>
+            </div>
+
+            <div className="md:justify-self-end flex flex-col items-start md:flex-row gap-3 mt-4 md:mt-0">
+              <button
+                onClick={() => setLanguage(language === "en" ? "fr" : "en")}
+                className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 py-3 min-w-[90px] bg-[#34B300] hover:bg-[#4C8EF7] hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              >
+                {language === "en" ? "FR" : "EN"}
+              </button>
+              <button
+                onClick={() => setIsAboutOpen(true)}
+                className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#C69BEA] hover:bg-[#4C8EF7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              >
+                {language === "en" ? "About" : "About"}
+              </button>
+              <button
+                onClick={() => setIsContactOpen(true)}
+                className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#FF5533] hover:bg-[#34B300] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              >
+                Contact
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -411,10 +425,10 @@ export default function Home() {
       )}
       {isAboutOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-3 md:p-6 overflow-y-auto">
-          <div className="paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2 max-h-[95vh] mt-4 md:mt-0">
+          <div className="paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 pt-16 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2 max-h-[95vh] mt-4 md:mt-0">
             <button
               onClick={() => setIsAboutOpen(false)}
-              className="sticky top-2 ml-auto block text-4xl md:text-2xl leading-none z-20 bg-[#FFF200] px-3 py-1"
+              className="absolute top-4 right-4 md:top-6 md:right-6 text-4xl leading-none z-50 bg-[#FFF200] border border-black w-12 h-12 flex items-center justify-center"
             >
               ×
             </button>
