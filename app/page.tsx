@@ -189,22 +189,22 @@ export default function Home() {
             </h1>
           </div>
 
-          <div className="md:justify-self-end flex flex-wrap gap-3 mt-4 md:mt-0">
+          <div className="md:justify-self-end flex flex-col items-start md:flex-row gap-3 mt-4 md:mt-0">
             <button
               onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 py-3 min-w-[90px] bg-[#34B300] hover:bg-[#4C8EF7] hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 py-3 min-w-[90px] bg-[#34B300] hover:bg-[#4C8EF7] hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
             >
               {language === "en" ? "FR" : "EN"}
             </button>
             <button
               onClick={() => setIsAboutOpen(true)}
-              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#C69BEA] hover:bg-[#4C8EF7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#C69BEA] hover:bg-[#4C8EF7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
             >
               {language === "en" ? "About" : "About"}
             </button>
             <button
               onClick={() => setIsContactOpen(true)}
-              className="paper-texture text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#FF5533] hover:bg-[#34B300] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+              className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#FF5533] hover:bg-[#34B300] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
             >
               Contact
             </button>
@@ -410,11 +410,11 @@ export default function Home() {
         </div>
       )}
       {isAboutOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-6">
-          <div className="paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2">
+        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-3 md:p-6 overflow-y-auto">
+          <div className="paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2 max-h-[95vh] mt-4 md:mt-0">
             <button
               onClick={() => setIsAboutOpen(false)}
-              className="absolute top-4 right-4 text-2xl leading-none"
+              className="sticky top-2 ml-auto block text-4xl md:text-2xl leading-none z-20 bg-[#FFF200] px-3 py-1"
             >
               ×
             </button>
