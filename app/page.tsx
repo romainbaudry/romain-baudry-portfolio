@@ -190,7 +190,7 @@ export default function Home() {
 
   return (
     <main className="bg-[#F7F4EE] text-black min-h-screen">
-      <section className="relative px-6 md:px-10 pt-8 pb-8 border-b border-black overflow-hidden bg-black">
+      <section className="relative min-h-[60vh] flex flex-col justify-end px-6 md:px-10 pt-8 pb-8 border-b border-black overflow-hidden bg-black">
         <video
           autoPlay
           muted
@@ -198,44 +198,29 @@ export default function Home() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         >
-          <source src="/videos/flicker-texture-2.mp4" type="video/mp4" />
+          <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
-        <div className="relative z-10 bg-transparent">
-          <div className="grid md:grid-cols-[1fr_320px] gap-8 md:gap-10 items-end">
-            <div>
-              <h1 className="leading-[0.85]">
-                <span className="text-white block text-[20vw] sm:text-[16vw] md:text-[7vw] font-black uppercase leading-none">
-                  Romain
-                </span>
-                <span className="text-white block text-[20vw] sm:text-[16vw] md:text-[7vw] font-black uppercase leading-none">
-                  Baudry
-                </span>
-              </h1>
-            </div>
-
-            <div className="md:justify-self-end flex flex-col items-start md:flex-row gap-3 mt-4 md:mt-0">
-              <button
-                onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-                className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 py-3 min-w-[90px] bg-[#34B300] hover:bg-[#4C8EF7] hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
-              >
-                {language === "en" ? "FR" : "EN"}
-              </button>
-              <button
-                onClick={() => setIsAboutOpen(true)}
-                className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#C69BEA] hover:bg-[#4C8EF7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
-              >
-                {language === "en" ? "About" : "About"}
-              </button>
-              <button
-                onClick={() => setIsContactOpen(true)}
-                className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#FF5533] hover:bg-[#34B300] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
-              >
-                Contact
-              </button>
-            </div>
-          </div>
+        <div className="relative z-10 flex flex-col items-start md:flex-row md:justify-end gap-3">
+          <button
+            onClick={() => setLanguage(language === "en" ? "fr" : "en")}
+            className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 py-3 min-w-[90px] bg-[#34B300] hover:bg-[#4C8EF7] hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+          >
+            {language === "en" ? "FR" : "EN"}
+          </button>
+          <button
+            onClick={() => setIsAboutOpen(true)}
+            className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#C69BEA] hover:bg-[#4C8EF7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+          >
+            {language === "en" ? "About" : "About"}
+          </button>
+          <button
+            onClick={() => setIsContactOpen(true)}
+            className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#FF5533] hover:bg-[#34B300] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+          >
+            Contact
+          </button>
         </div>
       </section>
 
