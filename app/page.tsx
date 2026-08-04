@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import VideoText from "./components/VideoText";
 
 const sections = [
   {
@@ -155,6 +156,7 @@ const musicVideos = [
 
 export default function Home() {
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [hoveredSection, setHoveredSection] = useState<string | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -246,6 +248,8 @@ export default function Home() {
                   openSection === section.number ? null : section.number
                 )
               }
+              onMouseEnter={() => setHoveredSection(section.number)}
+              onMouseLeave={() => setHoveredSection(null)}
               className={`${section.bg} ${section.hoverBg} ${section.text} paper-texture border-b border-black px-6 md:px-10 py-6 md:py-8 cursor-pointer transition-all duration-500 hover:scale-y-[1.12] hover:z-10 hover:relative group`}
             >
               <div className="grid grid-cols-[20px_55px_1fr] md:grid-cols-[40px_120px_1fr_100px] items-center gap-3 md:gap-8 transition-all duration-500 group-hover:py-3">
@@ -255,8 +259,13 @@ export default function Home() {
                   {section.number}
                 </div>
 
-                <h2 className="text-[7vw] md:text-[6vw] leading-none font-black uppercase transition-all duration-500 group-hover:translate-x-3 group-hover:scale-y-110 origin-center break-words">
-                  {section.title}
+                <h2 className="transition-all duration-500 group-hover:translate-x-3 group-hover:scale-y-110 origin-center break-words">
+                  <VideoText
+                    text={section.title}
+                    active={hoveredSection === section.number}
+                    videoSrc="/videos/flicker-texture-2.mp4"
+                    className="text-[7vw] md:text-[6vw] leading-none font-black uppercase"
+                  />
                 </h2>
                 
                 <div className="hidden md:flex justify-end">
