@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import VideoText from "./components/VideoText";
 
 const sections = [
@@ -46,26 +47,26 @@ const directorVideos = [
   {
     title: "Blacksmith",
     youtubeUrl: "https://youtu.be/26FzZbTLQoY",
-    thumbnail: "https://img.youtube.com/vi/26FzZbTLQoY/maxresdefault.jpg",
     previewVideo: "/videos/director/blacksmith.mp4",
+    poster: "/videos/director/blacksmith-poster.jpg",
   },
   {
     title: "Une Ferme sur Sol Vivant",
     youtubeUrl: "https://youtu.be/T6cFPxLRkTs",
-    thumbnail: "https://img.youtube.com/vi/T6cFPxLRkTs/maxresdefault.jpg",
     previewVideo: "/videos/director/ferme.mp4",
+    poster: "/videos/director/ferme-poster.jpg",
   },
   {
     title: "Equilibrivm",
     youtubeUrl: "https://youtu.be/TDGUyRcKDQY",
-    thumbnail: "https://img.youtube.com/vi/TDGUyRcKDQY/maxresdefault.jpg",
     previewVideo: "/videos/director/equilibrivm.mp4",
+    poster: "/videos/director/equilibrivm-poster.jpg",
   },
   {
     title: "La Bonne Aventure",
     youtubeUrl: "https://youtu.be/sdHxbXPZtUA",
-    thumbnail: "https://img.youtube.com/vi/sdHxbXPZtUA/maxresdefault.jpg",
     previewVideo: "/videos/director/bonne-aventure-2.mp4",
+    poster: "/videos/director/bonne-aventure-2-poster.jpg",
   },
 ];
 
@@ -73,38 +74,38 @@ const editorVideos = [
   {
     title: "Editor Project 1",
     youtubeUrl: "https://youtu.be/hzexEBHNh_E",
-    thumbnail: "https://img.youtube.com/vi/hzexEBHNh_E/maxresdefault.jpg",
     previewVideo: "/videos/editor/a-second-life.mp4",
+    poster: "/videos/editor/a-second-life-poster.jpg",
   },
   {
     title: "Editor Project 2",
     youtubeUrl: "https://youtu.be/1nictnMek7I",
-    thumbnail: "https://img.youtube.com/vi/1nictnMek7I/maxresdefault.jpg",
     previewVideo: "/videos/editor/allianz.mp4",
+    poster: "/videos/editor/allianz-poster.jpg",
   },
   {
     title: "Editor Project 3",
     youtubeUrl: "https://youtu.be/bO7QcNrlU-s",
-    thumbnail: "https://img.youtube.com/vi/bO7QcNrlU-s/maxresdefault.jpg",
     previewVideo: "/videos/editor/fretbay.mp4",
+    poster: "/videos/editor/fretbay-poster.jpg",
   },
   {
     title: "Editor Project 4",
     youtubeUrl: "https://youtu.be/t0vYfXplAZ4",
-    thumbnail: "https://img.youtube.com/vi/t0vYfXplAZ4/maxresdefault.jpg",
     previewVideo: "/videos/editor/grand-blanc.mp4",
+    poster: "/videos/editor/grand-blanc-poster.jpg",
   },
   {
     title: "Editor Project 5",
     youtubeUrl: "https://youtu.be/j571JNrDRwE",
-    thumbnail: "https://img.youtube.com/vi/j571JNrDRwE/maxresdefault.jpg",
     previewVideo: "/videos/editor/repetto.mp4",
+    poster: "/videos/editor/repetto-poster.jpg",
   },
   {
     title: "Editor Project 6",
     youtubeUrl: "https://youtu.be/xa9F1JSC4g4",
-    thumbnail: "https://img.youtube.com/vi/xa9F1JSC4g4/maxresdefault.jpg",
     previewVideo: "/videos/editor/undone.mp4",
+    poster: "/videos/editor/undone-poster.jpg",
   },
 ];
 
@@ -161,6 +162,42 @@ export default function Home() {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [language, setLanguage] = useState<"en" | "fr">("en");
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const aboutCloseRef = useRef<HTMLButtonElement>(null);
+  const contactCloseRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mediaQuery.matches) {
+      heroVideoRef.current?.pause();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isAboutOpen && !isContactOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsAboutOpen(false);
+        setIsContactOpen(false);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    const target = isAboutOpen ? aboutCloseRef.current : contactCloseRef.current;
+    const focusTimeout = window.setTimeout(() => {
+      target?.focus({ preventScroll: true });
+    }, 550);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+      window.clearTimeout(focusTimeout);
+    };
+  }, [isAboutOpen, isContactOpen]);
 
   const currentSections = sections.map((section) => ({
     ...section,
@@ -190,12 +227,14 @@ export default function Home() {
 
   return (
     <main className="bg-[#F7F4EE] text-black min-h-screen">
-      <section className="relative min-h-[60vh] flex flex-col justify-end px-6 md:px-10 pt-8 pb-8 border-b border-black overflow-hidden bg-black">
+      <section className="relative min-h-[40vh] md:min-h-[52vh] flex flex-col justify-end px-6 md:px-10 pt-8 pb-8 border-b border-black overflow-hidden bg-black">
         <video
+          ref={heroVideoRef}
           autoPlay
           muted
           loop
           playsInline
+          poster="/videos/hero-poster.jpg"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         >
           <source src="/videos/hero.mp4" type="video/mp4" />
@@ -235,16 +274,16 @@ export default function Home() {
               }
               onMouseEnter={() => setHoveredSection(section.number)}
               onMouseLeave={() => setHoveredSection(null)}
-              className={`${section.bg} ${section.hoverBg} ${section.text} paper-texture border-b border-black px-6 md:px-10 py-6 md:py-8 cursor-pointer transition-all duration-500 hover:scale-y-[1.12] hover:z-10 hover:relative group`}
+              className={`${section.bg} ${section.hoverBg} ${section.text} paper-texture border-b border-black px-6 md:px-10 py-6 md:py-8 cursor-pointer transition-all duration-300 hover:scale-y-[1.12] hover:z-10 hover:relative group`}
             >
-              <div className="grid grid-cols-[20px_55px_1fr] md:grid-cols-[40px_120px_1fr_100px] items-center gap-3 md:gap-8 transition-all duration-500 group-hover:py-3">
+              <div className="grid grid-cols-[20px_55px_1fr] md:grid-cols-[40px_120px_1fr_100px] items-center gap-3 md:gap-8 transition-all duration-300 group-hover:py-3">
                 <div className="w-4 h-4 rounded-full border border-current" />
 
                 <div className={`text-[10vw] md:text-[5vw] font-black leading-none ${section.accent}`}>
                   {section.number}
                 </div>
 
-                <h2 className="transition-all duration-500 group-hover:translate-x-3 group-hover:scale-y-110 origin-center break-words">
+                <h2 className="transition-all duration-300 group-hover:translate-x-3 group-hover:scale-y-110 origin-center break-words">
                   <VideoText
                     text={section.title}
                     active={hoveredSection === section.number}
@@ -277,20 +316,36 @@ export default function Home() {
             </div>
 
             {section.number === "01" && openSection === "01" && (
-              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-in fade-in duration-500">
+              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-fade-in">
                 <div className="grid md:grid-cols-2 gap-6">
                   {directorVideos.map((video) => (
                     <div
                       key={video.youtubeUrl}
                       onClick={() => setSelectedVideo(video.youtubeUrl)}
-                      className="group relative block overflow-hidden bg-black cursor-pointer"
+                      onMouseEnter={(e) => {
+                        setHoveredCard(video.youtubeUrl);
+                        const v = e.currentTarget.querySelector("video");
+                        if (v) {
+                          v.currentTime = 0;
+                          v.play().catch(() => {});
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        setHoveredCard(null);
+                        e.currentTarget.querySelector("video")?.pause();
+                      }}
+                      className={`group relative block overflow-hidden bg-black cursor-pointer transition-opacity duration-300 ${
+                        hoveredCard && hoveredCard !== video.youtubeUrl
+                          ? "opacity-40"
+                          : "opacity-100"
+                      }`}
                     >
                       <video
-                        autoPlay
                         muted
                         loop
                         playsInline
                         preload="metadata"
+                        poster={video.poster}
                         className="w-full aspect-video object-cover transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
                       >
                         <source src={video.previewVideo} type="video/mp4" />
@@ -314,20 +369,36 @@ export default function Home() {
             )}
 
             {section.number === "02" && openSection === "02" && (
-              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-in fade-in duration-500">
+              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-fade-in">
                 <div className="grid md:grid-cols-2 gap-6">
                   {editorVideos.map((video) => (
                     <div
                       key={video.youtubeUrl}
                       onClick={() => setSelectedVideo(video.youtubeUrl)}
-                      className="group relative block overflow-hidden bg-black cursor-pointer"
+                      onMouseEnter={(e) => {
+                        setHoveredCard(video.youtubeUrl);
+                        const v = e.currentTarget.querySelector("video");
+                        if (v) {
+                          v.currentTime = 0;
+                          v.play().catch(() => {});
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        setHoveredCard(null);
+                        e.currentTarget.querySelector("video")?.pause();
+                      }}
+                      className={`group relative block overflow-hidden bg-black cursor-pointer transition-opacity duration-300 ${
+                        hoveredCard && hoveredCard !== video.youtubeUrl
+                          ? "opacity-40"
+                          : "opacity-100"
+                      }`}
                     >
                       <video
-                        autoPlay
                         muted
                         loop
                         playsInline
                         preload="metadata"
+                        poster={video.poster}
                         className="w-full aspect-video object-cover transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
                       >
                         <source src={video.previewVideo} type="video/mp4" />
@@ -351,13 +422,19 @@ export default function Home() {
             )}
 
             {section.number === "03" && openSection === "03" && (
-              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-in fade-in duration-500">
+              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-fade-in">
                 <div className="grid md:grid-cols-2 gap-6">
                   {contentVideos.map((video) => (
                     <div
                       key={video.youtubeUrl}
                       onClick={() => setSelectedVideo(video.youtubeUrl)}
-                      className="group relative block overflow-hidden bg-black cursor-pointer"
+                      onMouseEnter={() => setHoveredCard(video.youtubeUrl)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                      className={`group relative block overflow-hidden bg-black cursor-pointer transition-opacity duration-300 ${
+                        hoveredCard && hoveredCard !== video.youtubeUrl
+                          ? "opacity-40"
+                          : "opacity-100"
+                      }`}
                     >
                       <img
                         src={video.thumbnail}
@@ -377,13 +454,19 @@ export default function Home() {
             )}
 
             {section.number === "04" && openSection === "04" && (
-              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-in fade-in duration-500">
+              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-fade-in">
                 <div className="grid md:grid-cols-2 gap-6">
                   {musicVideos.map((video) => (
                     <div
                       key={video.youtubeUrl}
                       onClick={() => setSelectedVideo(video.youtubeUrl)}
-                      className="group relative block overflow-hidden bg-black cursor-pointer"
+                      onMouseEnter={() => setHoveredCard(video.youtubeUrl)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                      className={`group relative block overflow-hidden bg-black cursor-pointer transition-opacity duration-300 ${
+                        hoveredCard && hoveredCard !== video.youtubeUrl
+                          ? "opacity-40"
+                          : "opacity-100"
+                      }`}
                     >
                       <img
                         src={video.thumbnail}
@@ -428,9 +511,20 @@ export default function Home() {
         </div>
       )}
       {isContactOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-6">
-          <div className="paper-texture bg-[#34B300] border-2 border-black max-w-2xl w-full p-6 md:p-10 shadow-[12px_12px_0px_black] relative rotate-0 md:rotate-2">
+        <div
+          onClick={() => setIsContactOpen(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-6"
+        >
+          <div className="absolute inset-0 bg-black/40 animate-backdrop-fade-in" />
+          <div
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label={language === "en" ? "Contact" : "Contact"}
+            className="animate-paper-slide-up paper-texture bg-[#34B300] border-2 border-black max-w-2xl w-full p-6 md:p-10 shadow-[12px_12px_0px_black] relative rotate-0 md:rotate-2"
+          >
             <button
+              ref={contactCloseRef}
               onClick={() => setIsContactOpen(false)}
               className="absolute top-4 right-4 text-2xl leading-none"
             >
@@ -468,15 +562,37 @@ export default function Home() {
                     </a>
                   </div>
                 </div>
+
+                <div className="uppercase text-sm tracking-[0.2em] font-semibold border-t border-black pt-6 mt-8">
+                  <a
+                    href="https://www.instagram.com/romainbaudry/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    Instagram ↗
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       )}
       {isAboutOpen && (
-        <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center bg-black/40 p-3 md:p-6 overflow-y-auto">
-          <div className="paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 pt-16 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2 max-h-[95vh] mt-4 md:mt-8">
+        <div
+          onClick={() => setIsAboutOpen(false)}
+          className="fixed inset-0 z-50 flex items-start md:items-center justify-center p-3 md:p-6 overflow-y-auto"
+        >
+          <div className="fixed inset-0 bg-black/40 animate-backdrop-fade-in" />
+          <div
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="About Romain Baudry"
+            className="animate-paper-slide-up paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 pt-16 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2 max-h-[95vh] mt-4 md:mt-8"
+          >
             <button
+              ref={aboutCloseRef}
               onClick={() => setIsAboutOpen(false)}
               className="absolute top-4 right-4 md:top-6 md:right-6 text-4xl leading-none z-50 bg-[#FFF200] border border-black w-12 h-12 flex items-center justify-center"
             >
@@ -509,11 +625,13 @@ export default function Home() {
                 </p>
               </div>
 
-              <div>
-                <img
+              <div className="relative w-full max-w-[320px] mx-auto aspect-[4/5] border-2 border-black">
+                <Image
                   src="/romain-about.jpg"
                   alt="Romain Baudry"
-                  className="w-full max-w-[320px] mx-auto aspect-[4/5] object-cover border-2 border-black"
+                  fill
+                  sizes="320px"
+                  className="object-cover"
                 />
               </div>
             </div>
