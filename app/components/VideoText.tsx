@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 interface VideoTextProps {
   text: string;
@@ -16,76 +16,47 @@ export default function VideoText({
   className = "",
 }: VideoTextProps) {
   const textRef = useRef<HTMLSpanElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [maskStyle, setMaskStyle] = useState<CSSProperties>({});
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const video = videoRef.current;
     const textEl = textRef.current;
-    if (!canvas || !video || !textEl) return;
+    if (!textEl) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    if (!active) {
-      video.pause();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      return;
-    }
-
-    let rafId: number;
-    const dpr = window.devicePixelRatio || 1;
-
-    const resize = () => {
+    const updateMask = () => {
       const rect = textEl.getBoundingClientRect();
-      canvas.width = Math.max(1, Math.round(rect.width * dpr));
-      canvas.height = Math.max(1, Math.round(rect.height * dpr));
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
-    };
-    resize();
-
-    const style = window.getComputedStyle(textEl);
-    const fontString = `${style.fontWeight} ${
-      parseFloat(style.fontSize) * dpr
-    }px ${style.fontFamily}`;
-
-    const draw = () => {
-      if (canvas.width && canvas.height) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        ctx.globalCompositeOperation = "source-over";
-        ctx.font = fontString;
-        ctx.textBaseline = "top";
-        ctx.fillStyle = "#000";
-        ctx.fillText(text, 0, 0);
-
-        const vw = video.videoWidth;
-        const vh = video.videoHeight;
-        if (vw && vh) {
-          ctx.globalCompositeOperation = "source-in";
-          const scale = Math.max(canvas.width / vw, canvas.height / vh);
-          const dw = vw * scale;
-          const dh = vh * scale;
-          const dx = (canvas.width - dw) / 2;
-          const dy = (canvas.height - dh) / 2;
-          ctx.drawImage(video, dx, dy, dw, dh);
-        }
-      }
-      rafId = requestAnimationFrame(draw);
+      if (!rect.width || !rect.height) return;
+      const style = window.getComputedStyle(textEl);
+      const fontFamily = style.fontFamily.replace(/"/g, "'");
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${rect.width}' height='${rect.height}'><text x='0' y='0' font-family='${fontFamily}' font-weight='${style.fontWeight}' font-size='${parseFloat(
+        style.fontSize
+      )}' dominant-baseline='hanging' fill='#fff'>${text}</text></svg>`;
+      const url = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+      setMaskStyle({
+        WebkitMaskImage: url,
+        maskImage: url,
+        WebkitMaskRepeat: "no-repeat",
+        maskRepeat: "no-repeat",
+        WebkitMaskSize: "100% 100%",
+        maskSize: "100% 100%",
+      });
     };
 
-    video.play().catch(() => {});
-    rafId = requestAnimationFrame(draw);
-    window.addEventListener("resize", resize);
+    updateMask();
+    window.addEventListener("resize", updateMask);
+    return () => window.removeEventListener("resize", updateMask);
+  }, [text]);
 
-    return () => {
-      window.removeEventListener("resize", resize);
-      cancelAnimationFrame(rafId);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (active) {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    } else {
       video.pause();
-    };
-  }, [active, text]);
+    }
+  }, [active]);
 
   return (
     <span className="relative inline-block">
@@ -96,22 +67,23 @@ export default function VideoText({
       >
         {text}
       </span>
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 pointer-events-none"
-        style={{ opacity: active ? 1 : 0 }}
-      />
-      <video
-        ref={videoRef}
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        className="absolute w-px h-px opacity-0 pointer-events-none"
-        aria-hidden="true"
-      >
-        <source src={videoSrc} type="video/mp4" />
-      </video>
+      {active && (
+        <span
+          className="absolute inset-0 pointer-events-none"
+          style={maskStyle}
+        >
+          <video
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={videoSrc} type="video/mp4" />
+          </video>
+        </span>
+      )}
     </span>
   );
 }
