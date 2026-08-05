@@ -9,8 +9,8 @@ const sections = [
     number: "01",
     title: "DIRECTOR",
     subtitle: "documentary, artist content, events",
-    bg: "bg-[#F4C234]",
-    hoverBg: "hover:bg-[#34B300]",
+    bg: "bg-[#F9CA10]",
+    hoverBg: "hover:bg-[#9570EB]",
     text: "text-black",
     accent: "text-black",
   },
@@ -18,8 +18,8 @@ const sections = [
     number: "02",
     title: "EDITOR",
     subtitle: "Editing, rhythm and post-production",
-    bg: "bg-[#4C8EF7]",
-    hoverBg: "hover:bg-[#C69BEA]",
+    bg: "bg-[#4979E9]",
+    hoverBg: "hover:bg-[#F48F2A]",
     text: "text-black",
     accent: "text-black",
   },
@@ -27,8 +27,8 @@ const sections = [
     number: "03",
     title: "YOUTUBE",
     subtitle: "YouTube, social media, photography and thumbnails",
-    bg: "bg-[#E6A8C9]",
-    hoverBg: "hover:bg-[#34B300]",
+    bg: "bg-[#EC7983]",
+    hoverBg: "hover:bg-[#41C889]",
     text: "text-black",
     accent: "text-black",
   },
@@ -36,8 +36,8 @@ const sections = [
     number: "04",
     title: "MUSIC",
     subtitle: "DJ sets, events and musical projects",
-    bg: "bg-[#FF5533]",
-    hoverBg: "hover:bg-[#F4C234]",
+    bg: "bg-[#EA603E]",
+    hoverBg: "hover:bg-[#35BFD4]",
     text: "text-black",
     accent: "text-black",
   },
@@ -244,19 +244,19 @@ export default function Home() {
         <div className="relative z-10 flex flex-col items-start md:flex-row md:justify-end gap-3">
           <button
             onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-            className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 py-3 min-w-[90px] bg-[#34B300] hover:bg-[#4C8EF7] hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+            className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 py-3 min-w-[90px] bg-[#93CD51] hover:bg-[#CF59C5] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
           >
             {language === "en" ? "FR" : "EN"}
           </button>
           <button
             onClick={() => setIsAboutOpen(true)}
-            className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#C69BEA] hover:bg-[#4C8EF7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+            className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#7E78E2] hover:bg-[#BFD241] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
           >
             {language === "en" ? "About" : "About"}
           </button>
           <button
             onClick={() => setIsContactOpen(true)}
-            className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#FF5533] hover:bg-[#34B300] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
+            className="paper-texture w-full md:w-auto text-sm uppercase tracking-[0.25em] font-semibold border border-black px-5 md:px-6 py-3 min-w-[140px] bg-[#EC519E] hover:bg-[#55B6E7] hover:-translate-y-1 hover:shadow-[4px_4px_0px_black] transition-all duration-300"
           >
             Contact
           </button>
