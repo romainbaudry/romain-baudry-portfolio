@@ -164,8 +164,8 @@ export default function Home() {
   const [language, setLanguage] = useState<"en" | "fr">("en");
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const aboutCloseRef = useRef<HTMLButtonElement>(null);
-  const contactCloseRef = useRef<HTMLButtonElement>(null);
+  const aboutPanelRef = useRef<HTMLDivElement>(null);
+  const contactPanelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -187,7 +187,7 @@ export default function Home() {
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
 
-    const target = isAboutOpen ? aboutCloseRef.current : contactCloseRef.current;
+    const target = isAboutOpen ? aboutPanelRef.current : contactPanelRef.current;
     const focusTimeout = window.setTimeout(() => {
       target?.focus({ preventScroll: true });
     }, 550);
@@ -227,7 +227,7 @@ export default function Home() {
 
   return (
     <main className="bg-[#F7F4EE] text-black min-h-screen">
-      <section className="relative min-h-[40vh] md:min-h-[52vh] flex flex-col justify-end px-6 md:px-10 pt-8 pb-8 border-b border-black overflow-hidden bg-black">
+      <section className="relative min-h-[30vh] md:min-h-[42vh] flex flex-col justify-end px-6 md:px-10 pt-8 pb-8 border-b border-black overflow-hidden bg-black">
         <video
           ref={heroVideoRef}
           autoPlay
@@ -316,8 +316,8 @@ export default function Home() {
             </div>
 
             {section.number === "01" && openSection === "01" && (
-              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-fade-in">
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-black text-white border-b border-black animate-fade-in">
+                <div className="grid md:grid-cols-2 gap-0">
                   {directorVideos.map((video) => (
                     <div
                       key={video.youtubeUrl}
@@ -369,8 +369,8 @@ export default function Home() {
             )}
 
             {section.number === "02" && openSection === "02" && (
-              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-fade-in">
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-black text-white border-b border-black animate-fade-in">
+                <div className="grid md:grid-cols-2 gap-0">
                   {editorVideos.map((video) => (
                     <div
                       key={video.youtubeUrl}
@@ -422,8 +422,8 @@ export default function Home() {
             )}
 
             {section.number === "03" && openSection === "03" && (
-              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-fade-in">
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-black text-white border-b border-black animate-fade-in">
+                <div className="grid md:grid-cols-2 gap-0">
                   {contentVideos.map((video) => (
                     <div
                       key={video.youtubeUrl}
@@ -454,8 +454,8 @@ export default function Home() {
             )}
 
             {section.number === "04" && openSection === "04" && (
-              <div className="bg-black text-white px-6 md:px-10 py-10 border-b border-black animate-fade-in">
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-black text-white border-b border-black animate-fade-in">
+                <div className="grid md:grid-cols-2 gap-0">
                   {musicVideos.map((video) => (
                     <div
                       key={video.youtubeUrl}
@@ -502,7 +502,7 @@ export default function Home() {
               src={`https://www.youtube.com/embed/${selectedVideo
                 .split("/")
                 .pop()
-                ?.split("?")[0]}?autoplay=1`}
+                ?.split("?")[0]}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3`}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -517,20 +517,14 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-black/40 animate-backdrop-fade-in" />
           <div
+            ref={contactPanelRef}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-label={language === "en" ? "Contact" : "Contact"}
-            className="animate-paper-slide-up paper-texture bg-[#34B300] border-2 border-black max-w-2xl w-full p-6 md:p-10 shadow-[12px_12px_0px_black] relative rotate-0 md:rotate-2"
+            tabIndex={-1}
+            className="animate-paper-slide-up paper-texture bg-[#34B300] border-2 border-black max-w-2xl w-full p-6 md:p-10 shadow-[12px_12px_0px_black] relative rotate-0 md:rotate-2 outline-none"
           >
-            <button
-              ref={contactCloseRef}
-              onClick={() => setIsContactOpen(false)}
-              className="absolute top-4 right-4 text-2xl leading-none"
-            >
-              ×
-            </button>
-
             <div>
               <div>
                 <h3 className="text-4xl md:text-6xl leading-[0.85] font-black uppercase mb-6">
@@ -585,19 +579,14 @@ export default function Home() {
         >
           <div className="fixed inset-0 bg-black/40 animate-backdrop-fade-in" />
           <div
+            ref={aboutPanelRef}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-label="About Romain Baudry"
-            className="animate-paper-slide-up paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 pt-16 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2 max-h-[95vh] mt-4 md:mt-8"
+            tabIndex={-1}
+            className="animate-paper-slide-up paper-texture bg-[#FFF200] border-2 border-black max-w-5xl w-full p-6 md:p-12 shadow-[12px_12px_0px_black] relative rotate-0 md:-rotate-2 max-h-[95vh] mt-4 md:mt-8 outline-none"
           >
-            <button
-              ref={aboutCloseRef}
-              onClick={() => setIsAboutOpen(false)}
-              className="absolute top-4 right-4 md:top-6 md:right-6 text-4xl leading-none z-50 bg-[#FFF200] border border-black w-12 h-12 flex items-center justify-center"
-            >
-              ×
-            </button>
 
             <div className="grid md:grid-cols-[420px_1fr] gap-10 items-start mb-10">
               <div>

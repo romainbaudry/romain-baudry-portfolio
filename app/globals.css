@@ -86,19 +86,16 @@ body {
 }
 
 @keyframes paper-slide-up {
-  0% {
+  from {
     transform: translateY(100vh);
   }
-  70% {
-    transform: translateY(-2%);
-  }
-  100% {
+  to {
     transform: translateY(0);
   }
 }
 
 .animate-paper-slide-up {
-  animation: paper-slide-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: paper-slide-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
