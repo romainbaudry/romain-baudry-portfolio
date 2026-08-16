@@ -293,24 +293,20 @@ export default function Home() {
                 </h2>
                 
                 <div className="hidden md:flex justify-end">
-                  <div className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-black text-white flex items-center justify-center text-3xl md:text-5xl font-black transition-all duration-300 group-hover:scale-110">
-                    <svg
-                      viewBox="0 0 24 24"
-                      className={`w-8 h-8 md:w-10 md:h-10 transition-transform duration-300 ${
-                        openSection === section.number
-                          ? "rotate-90 group-hover:rotate-[110deg]"
-                          : "rotate-0 group-hover:rotate-[20deg]"
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M5 12h14" />
-                      <path d="m12 5 7 7-7 7" />
-                    </svg>
-                  </div>
+                  <svg
+                    viewBox="0 0 24 24"
+                    className={`w-14 h-14 md:w-16 md:h-16 transition-transform duration-300 ease-out group-hover:translate-x-1 ${
+                      openSection === section.number ? "rotate-90" : "rotate-0"
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m13 6 6 6-6 6" />
+                  </svg>
                 </div>
               </div>
             </div>
@@ -351,17 +347,6 @@ export default function Home() {
                         <source src={video.previewVideo} type="video/mp4" />
                       </video>
 
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="w-16 h-16 rounded-full bg-black/80 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                          <svg
-                            viewBox="0 0 24 24"
-                            className="w-7 h-7 text-white"
-                            fill="currentColor"
-                          >
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </div>
-                      </div>
                     </div>
                   ))}
                 </div>
@@ -404,17 +389,6 @@ export default function Home() {
                         <source src={video.previewVideo} type="video/mp4" />
                       </video>
 
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="w-16 h-16 rounded-full bg-black/80 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                          <svg
-                            viewBox="0 0 24 24"
-                            className="w-7 h-7 text-white"
-                            fill="currentColor"
-                          >
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </div>
-                      </div>
                     </div>
                   ))}
                 </div>
@@ -442,11 +416,6 @@ export default function Home() {
                         className="w-full aspect-video object-cover transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
                       />
 
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-20 h-14 rounded-xl bg-red-600 flex items-center justify-center shadow-xl transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white ml-1" />
-                        </div>
-                      </div>
                     </div>
                   ))}
                 </div>
@@ -474,11 +443,6 @@ export default function Home() {
                         className="w-full aspect-video object-cover transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
                       />
 
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-20 h-14 rounded-xl bg-red-600 flex items-center justify-center shadow-xl transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white ml-1" />
-                        </div>
-                      </div>
                     </div>
                   ))}
                 </div>
